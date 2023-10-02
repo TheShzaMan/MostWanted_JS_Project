@@ -43,8 +43,8 @@ function searchPeopleDataSet(people) {
 		case 'trait':			
 			results = searchByTraits(people);
 			break;
-		default:
-			return searchPeopleDataSet(people);
+		// default:
+		// 	return searchPeopleDataSet(people);
 	}
 
 	return results;
@@ -94,35 +94,31 @@ function searchByTraits(people) {
 			break;
 		case 'exit':
 			return;
-		default:
-			return searchByTraits(people);
+		// default:
+		// 	return searchByTraits(people);
 	}
 	
 	return results;
 }
 
-function searchByGender(people){
-	let genderToSearch = "";
+function searchByGender(people){	
 	const genderSelection = validatedPrompt(
 		'Please enter gender to search for or back to return to traits menu', 
-		['m', 'f', 'back'],
+		['male', 'female', 'back'],
 	);
 	
 	switch(genderSelection) {
-		case 'm':
-			genderToSearch = 'male';
-			break;			
-		case 'f':
-			genderToSearch = 'female';
-			break;
+		case 'male':		
+		case 'female':
+			const genderSearchResults = people.filter((p) => p.gender === genderSelection);
+			return genderSearchResults;						
 		case 'back':
 			return searchByTraits(people);
-		default:
-			return searchByGender(people);			
+		// default:
+		// 	return searchByGender(people);			
 	}
 	
-	const genderSearchResults = people.filter((p) => p.gender === genderToSearch);
-	return genderSearchResults;	
+	
 }
 
 function searchByEyeColor(people){
@@ -133,29 +129,21 @@ function searchByEyeColor(people){
 	);
 
 	switch(eyeColorSelection) {
-		case 'black': 
-			eyeColorToSearch = 'black';
-			break;			
-		case 'blue': 
-			eyeColorToSearch = 'blue';
-			break;
-		case 'brown':
-			eyeColorToSearch = 'brown';
-			break;			
+		case 'black':			
+		case 'blue':
+		case 'brown':			
 		case 'green':
-			eyeColorToSearch = 'green';
-			break;
 		case 'hazel':
-			eyeColorToSearch = 'hazel';
-			break;
+			const eyeColorSearchResults = people.filter((p) => p.eyeColor === eyeColorToSearch);
+			return eyeColorSearchResults;
 		case 'back':
 			return searchByTraits(people);
-		default:
-			return searchByEyeColor(people);
+		// default:
+		// 	return searchByEyeColor(people);
 	}
 
-	const eyeColorSearchResults = people.filter((p) => p.eyeColor === eyeColorToSearch);
-	return eyeColorSearchResults;	
+	
+		
 }
 
 function mainMenu(person, people) {
