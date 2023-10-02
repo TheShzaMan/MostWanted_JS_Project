@@ -1,7 +1,7 @@
 // PRO TIP: To quickly navigate to a function, right click on its name and select "Go to Definition"
 
 function app(people) {
-	debugger;
+	//debugger;
 	displayWelcome();
 	runSearchAndMenu(people);
 	return exitOrRestart(people);
@@ -38,9 +38,8 @@ function searchPeopleDataSet(people) {
 		case 'name':
 			results = searchByName(people);
 			break;
-		case 'trait':
-			//! TODO
-			// results = searchByTraits(people);
+		case 'trait':			
+			results = searchByTraits(people);
 			break;
 		default:
 			return searchPeopleDataSet(people);
@@ -69,6 +68,35 @@ function searchByName(people) {
 			person.lastName.toLowerCase() === lastNameToSearchFor.toLowerCase(),
 	);
 	return fullNameSearchResults;
+}
+
+function searchByTraits(people) {
+	const traitToSearch = validatedPrompt(
+		'Please enter trait type to add to your search:\n[1]gender, [2]height, [3]eye color or [4]occupation',
+		['1', '2', '3', '4', 'exit']
+	);
+
+	let results = [];
+	switch (traitToSearch) {
+		case '1':
+			results = searchByGender(people);
+			break;
+		case '2':
+			results = searchByHeight(people);
+			break;
+		case '3':
+			results = searchByEyeColor(people);
+			break;
+		case '4':
+			results = searchByOccupation(people);
+			break;
+		case 'exit':
+			return;
+		default:
+			return searchByTraits(people);
+	}
+	
+	return results;
 }
 
 function mainMenu(person, people) {
