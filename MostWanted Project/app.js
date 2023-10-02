@@ -101,16 +101,16 @@ function searchByTraits(people) {
 	return results;
 }
 
-function searchByGender(people){	
-	const genderSelection = validatedPrompt(
+function searchByGender(people) {	
+	const genderToSelect = validatedPrompt(
 		'Please enter gender to search for or back to return to traits menu', 
 		['male', 'female', 'back'],
 	);
 	
-	switch(genderSelection) {
+	switch(genderToSelect) {
 		case 'male':		
 		case 'female':
-			const genderSearchResults = people.filter((p) => p.gender === genderSelection);
+			const genderSearchResults = people.filter((p) => p.gender === genderToSelect);
 			return genderSearchResults;						
 		case 'back':
 			return searchByTraits(people);
@@ -121,7 +121,21 @@ function searchByGender(people){
 	
 }
 
-function searchByEyeColor(people){
+function searchByHeight(people) {
+	const heightToSearchString = prompt('Please enter the height of the person you are searching for.');
+	const heightToSearchInt = parseInt(heightToSearchString);
+	
+	const heightFilterResults = people.filter(
+		(p) => 
+			p.height < heightToSearchInt + 10 &&
+			p.height > heightToSearchInt - 10
+	);
+	return heightFilterResults;		
+	// Trying to find heights plus or minus 10 of the heightToSearchInt.
+			
+}
+
+function searchByEyeColor(people) {
 	let eyeColorToSearch = "";
 	const eyeColorSelection = validatedPrompt(
 		'Please enter eye color to search for or back to return to traits menu',
