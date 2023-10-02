@@ -2,6 +2,8 @@
 
 function app(people) {
 	//debugger;
+	// let searchResults = people.map((p) => p.eyeColor).sort();
+	// alert(searchResults);
 	displayWelcome();
 	runSearchAndMenu(people);
 	return exitOrRestart(people);
@@ -73,7 +75,7 @@ function searchByName(people) {
 function searchByTraits(people) {
 	const traitToSearch = validatedPrompt(
 		'Please enter trait type to add to your search:\n[1]gender, [2]height, [3]eye color or [4]occupation',
-		['1', '2', '3', '4', 'exit']
+		['1', '2', '3', '4', 'exit'],
 	);
 
 	let results = [];
@@ -120,11 +122,40 @@ function searchByGender(people){
 	}
 	
 	const genderSearchResults = people.filter((p) => p.gender === genderToSearch);
-	return genderSearchResults;
-	
-	
-	
-	
+	return genderSearchResults;	
+}
+
+function searchByEyeColor(people){
+	let eyeColorToSearch = "";
+	const eyeColorSelection = validatedPrompt(
+		'Please enter eye color to search for or back to return to traits menu',
+		['black', 'blue', 'brown', 'green', 'hazel'],
+	);
+
+	switch(eyeColorSelection) {
+		case 'black': 
+			eyeColorToSearch = 'black';
+			break;			
+		case 'blue': 
+			eyeColorToSearch = 'blue';
+			break;
+		case 'brown':
+			eyeColorToSearch = 'brown';
+			break;			
+		case 'green':
+			eyeColorToSearch = 'green';
+			break;
+		case 'hazel':
+			eyeColorToSearch = 'hazel';
+			break;
+		case 'back':
+			return searchByTraits(people);
+		default:
+			return searchByEyeColor(people);
+	}
+
+	const eyeColorSearchResults = people.filter((p) => p.eyeColor === eyeColorToSearch);
+	return eyeColorSearchResults;	
 }
 
 function mainMenu(person, people) {
