@@ -99,6 +99,34 @@ function searchByTraits(people) {
 	return results;
 }
 
+function searchByGender(people){
+	let genderToSearch = "";
+	const genderSelection = validatedPrompt(
+		'Please enter gender to search for or back to return to traits menu', 
+		['m', 'f', 'back'],
+	);
+	
+	switch(genderSelection) {
+		case 'm':
+			genderToSearch = 'male';
+			break;			
+		case 'f':
+			genderToSearch = 'female';
+			break;
+		case 'back':
+			return searchByTraits(people);
+		default:
+			return searchByGender(people);			
+	}
+	
+	const genderSearchResults = people.filter((p) => p.gender === genderToSearch);
+	return genderSearchResults;
+	
+	
+	
+	
+}
+
 function mainMenu(person, people) {
 	const mainMenuUserActionChoice = validatedPrompt(
 		`Person: ${person.firstName} ${person.lastName}\n\nDo you want to know their full information, family, or descendants?`,
