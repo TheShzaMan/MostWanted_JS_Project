@@ -52,8 +52,9 @@ function searchPeopleDataSet(people) {
 }
 
 function searchById(people) {
-	const idToSearchForString = prompt('Please enter the id of the person you are searching for.');
-	const idToSearchForInt = parseInt(idToSearchForString);
+	//const idToSearchForString = prompt('Please enter the id of the person you are searching for.');
+	//const idToSearchForInt = parseInt(idToSearchForString);
+	const idToSearchForInt = 888201200;
 	const idFilterResults = people.filter((person) => person.id === idToSearchForInt);
 	return idFilterResults;
 }
@@ -184,7 +185,7 @@ function mainMenu(person, people) {
 	switch (mainMenuUserActionChoice) {
 		case 'info':
 			//! TODO
-			// displayPersonInfo(person);
+			displayPersonInfo(person);
 			break;
 		case 'family':
 			//! TODO
@@ -203,6 +204,22 @@ function mainMenu(person, people) {
 	}
 
 	return mainMenu(person, people);
+}
+
+function displayPersonInfo(person){
+	
+	let personInfo =
+	 `
+	 id:  ${person.id}
+	 Name:  ${person.lastName}, ${person.firstName}
+	 Gender:  ${person.gender}
+	 D.O.B:  ${person.dob}
+	 Height:  ${person.height}in  Weight: ${person.weight}lbs
+	 EyeColor:  ${person.eyeColor}
+	 Occupation:  ${person.occupation}`;
+
+	
+	alert(personInfo);
 }
 
 function displayPeople(displayTitle, peopleToDisplay) {
