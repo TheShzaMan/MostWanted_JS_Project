@@ -127,11 +127,12 @@ function searchByHeight(people) {
 	
 	const heightFilterResults = people.filter(
 		(p) => 
-			p.height < heightToSearchInt + 10 &&
-			p.height > heightToSearchInt - 10
+			p.height < heightToSearchInt + 3 &&
+			p.height > heightToSearchInt - 3
 	);
-	return heightFilterResults;		
-	// Trying to find heights plus or minus 10 of the heightToSearchInt.
+	return heightFilterResults;
+			
+	
 			
 }
 
