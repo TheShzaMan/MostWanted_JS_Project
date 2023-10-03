@@ -2,8 +2,9 @@
 
 function app(people) {
 	//debugger;
-	// let searchResults = people.map((p) => p.eyeColor).sort();
-	// alert(searchResults);
+	// let searchResults = people.map(p => p.occupation);
+	// let uniqueResults = [...new Set(searchResults)];
+	// alert(uniqueResults);
 	displayWelcome();
 	runSearchAndMenu(people);
 	return exitOrRestart(people);
@@ -74,7 +75,7 @@ function searchByName(people) {
 
 function searchByTraits(people) {
 	const traitToSearch = validatedPrompt(
-		'Please enter trait type to add to your search:\n[1]gender, [2]height, [3]eye color or [4]occupation',
+		'Please enter trait type to add to your search:\nGender->(1),  Height->(2),  Eye_Color->(3)  or Occupation->(4)',
 		['1', '2', '3', '4', 'exit'],
 	);
 
@@ -117,12 +118,10 @@ function searchByGender(people) {
 		// default:
 		// 	return searchByGender(people);			
 	}
-	
-	
 }
 
 function searchByHeight(people) {
-	const heightToSearchString = prompt('Please enter the height of the person you are searching for.');
+	const heightToSearchString = prompt('Please enter the height(inches) of the person you are searching for.  Results will display anyone within 3 inches of your entry.');
 	const heightToSearchInt = parseInt(heightToSearchString);
 	
 	const heightFilterResults = people.filter(
@@ -130,14 +129,10 @@ function searchByHeight(people) {
 			p.height < heightToSearchInt + 3 &&
 			p.height > heightToSearchInt - 3
 	);
-	return heightFilterResults;
-			
-	
-			
+	return heightFilterResults;		
 }
 
 function searchByEyeColor(people) {
-	let eyeColorToSearch = "";
 	const eyeColorSelection = validatedPrompt(
 		'Please enter eye color to search for or back to return to traits menu',
 		['black', 'blue', 'brown', 'green', 'hazel'],
@@ -149,16 +144,35 @@ function searchByEyeColor(people) {
 		case 'brown':			
 		case 'green':
 		case 'hazel':
-			const eyeColorSearchResults = people.filter((p) => p.eyeColor === eyeColorToSearch);
+			const eyeColorSearchResults = people.filter((p) => p.eyeColor === eyeColorSelection);
 			return eyeColorSearchResults;
 		case 'back':
 			return searchByTraits(people);
 		// default:
 		// 	return searchByEyeColor(people);
 	}
+}
 
-	
-		
+function searchByOccupation(people) {
+	const occupationSelection = validatedPrompt(
+		'Please enter occupation from list to search or back to return to traits menu',
+		['programmer','assistant','landscaper','nurse','student','architect','doctor','politician'],
+	);
+
+	switch(occupationSelection) {
+		case 'programmer':			
+		case 'assistant':
+		case 'landscaper':			
+		case 'nurse':
+		case 'student':
+		case 'architect':			
+		case 'doctor':
+		case 'politician':
+			const occupationSearchResults = people.filter((p) => p.occupation === occupationSelection);
+			return occupationSearchResults;
+		case 'back':
+			return searchByTraits(people);
+	}
 }
 
 function mainMenu(person, people) {
