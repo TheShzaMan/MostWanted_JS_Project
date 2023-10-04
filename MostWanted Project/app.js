@@ -50,14 +50,13 @@ function searchPeopleDataSet(people) {
 		// default:
 		// 	return searchPeopleDataSet(people);
 	}
-
 	return results;
 }
 
 function searchById(people) {
-	//const idToSearchForString = prompt('Please enter the id of the person you are searching for.');
-	//const idToSearchForInt = parseInt(idToSearchForString);
-	const idToSearchForInt = 294874671;
+	const idToSearchForString = prompt('Please enter the id of the person you are searching for.');
+	const idToSearchForInt = parseInt(idToSearchForString);
+	//const idToSearchForInt = 294874671;
 	const idFilterResults = people.filter((person) => person.id === idToSearchForInt);
 	return idFilterResults;
 }
@@ -197,8 +196,8 @@ function mainMenu(person, people) {
 			break;
 		case 'descendants':
 			//! TODO
-			// let personDescendants = findPersonDescendants(person, people);
-			// displayPeople('Descendants', personDescendants);
+			let personDescendants = findPersonDescendants(person, people);
+			displayPeople('Descendants', personDescendants);
 			break;
 		case 'quit':
 			return;
@@ -208,6 +207,38 @@ function mainMenu(person, people) {
 
 	return mainMenu(person, people);
 }
+
+function findPersonDescendants(personFound, people) {
+	
+	const decendantsOfSomeone = people.filter( p => p.parents.length > 0);
+
+	const childrenOfPerson = decendantsOfSomeone.filter( d => d.parents.includes(personFound.id)); 
+	const grandChildrenOfPerson = decendantsOfSomeone.filter( d => d.parents.includes(childrenOfPerson[0]) || p.parents.includes(childrenOfPerson[1]));
+	const ggcOfPerson = decendantsOfSomeone.filter(d => d.parents.includes(grandChildrenOfPerson[0]) || d.parents.includes(grandChildrenOfPerson[1]));
+	
+	const decendants = people.filter( p => p.parents.includes(personFound.id);
+
+	const childrenOfPerson = decendantsOfSomeone.filter( d => d.parents.includes(personFound.id)); 
+	
+	// const grandChildrenOfPerson = []; //decendantsOfSomeone.filter(g => //decend parents include childrenOfPerson)	
+	// for (const person of decendantsOfSomeone) {		
+	// 	for (const child of childrenOfPerson) {
+	// 		if(decendant.parents.includes(child.id) && decendant !== child) {									
+	// 			grandChildrenOfPerson.push(person);
+	// 		}
+	// 	}
+	// }
+	// for (decendant of decendantsOfSomeone) {
+	// 	for (gc of decendant.parent) {
+	// 		if(decendantsOfSomeone.parents.includes(grandChildrenOfPerson.id))
+	// 	}
+	// }
+
+	if(decendantants === 0) {
+		alert(`No decendants on file`)
+	}
+}
+
 
 function displayPersonInfo(person){
 	
@@ -247,11 +278,10 @@ function findPersonFamily(personFound, people){
 		alert(`Parent on record: ${formatedParentText} `);
 	}
 	
-	const personSiblings = [];  //people.filter( p => p.parents.includes(personFound.parents));
+	const personSiblings = [];  
 	for (const person of people) {
 		for (const parent of person.parents) {
-			if(personFound.parents.includes(parent) && person !== personFound) {					
-				// personSiblings.push(makeFullName(person.firstName, person.lastName));
+			if(personFound.parents.includes(parent) && person !== personFound) {									
 				personSiblings.push(person);
 				break;
 			}			
@@ -262,8 +292,6 @@ function findPersonFamily(personFound, people){
 	}
 	else{
 		displayPeople('Siblings:', personSiblings);
-		//const formattedSibblingsText = personSiblings.join(`\n`);
-		//alert(`Siblings: ${formattedSibblingsText}`);
 	}	
 }
 
