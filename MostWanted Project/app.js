@@ -218,7 +218,7 @@ function findPersonDescendants(personFound, people) {
 	
 	const decendants = people.filter( p => p.parents.includes(personFound.id);
 
-	const childrenOfPerson = decendantsOfSomeone.filter( d => d.parents.includes(personFound.id)); 
+	//const childrenOfPerson = decendantsOfSomeone.filter( d => d.parents.includes(personFound.id)); 
 	
 	// const grandChildrenOfPerson = []; //decendantsOfSomeone.filter(g => //decend parents include childrenOfPerson)	
 	// for (const person of decendantsOfSomeone) {		
