@@ -57,7 +57,7 @@ function searchPeopleDataSet(people) {
 function searchById(people) {
 	//const idToSearchForString = prompt('Please enter the id of the person you are searching for.');
 	//const idToSearchForInt = parseInt(idToSearchForString);
-	const idToSearchForInt = 159819275;
+	const idToSearchForInt = 294874671;
 	const idFilterResults = people.filter((person) => person.id === idToSearchForInt);
 	return idFilterResults;
 }
@@ -246,11 +246,31 @@ function findPersonFamily(personFound, people){
 		const formatedParentText = parents.join(`\n`);						
 		alert(`Parent on record: ${formatedParentText} `);
 	}
-		
 	
-	
+	const personSiblings = [];  //people.filter( p => p.parents.includes(personFound.parents));
+	for (const person of people) {
+		for (const parent of person.parents) {
+			if(personFound.parents.includes(parent) && person !== personFound) {					
+				// personSiblings.push(makeFullName(person.firstName, person.lastName));
+				personSiblings.push(person);
+				break;
+			}			
+		}
+	}
+	if(personSiblings.length === 0) {
+		alert(`No sibling records found`);
+	}
+	else{
+		displayPeople('Siblings:', personSiblings);
+		//const formattedSibblingsText = personSiblings.join(`\n`);
+		//alert(`Siblings: ${formattedSibblingsText}`);
+	}	
 }
 
+// function makeFullName(firstName, lastName) {
+// 	const fullName = lastName + " " + firstName;
+// 	return fullName;
+// }
 
 function displayPeople(displayTitle, peopleToDisplay) {
 	const formatedPeopleDisplayText = peopleToDisplay
