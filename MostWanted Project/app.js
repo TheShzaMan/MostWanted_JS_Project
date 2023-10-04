@@ -1,5 +1,8 @@
 // PRO TIP: To quickly navigate to a function, right click on its name and select "Go to Definition"
 
+'use strict';
+
+
 function app(people) {
 	//debugger;
 	// let searchResults = people.map(p => p.occupation);
@@ -54,7 +57,7 @@ function searchPeopleDataSet(people) {
 function searchById(people) {
 	//const idToSearchForString = prompt('Please enter the id of the person you are searching for.');
 	//const idToSearchForInt = parseInt(idToSearchForString);
-	const idToSearchForInt = 888201200;
+	const idToSearchForInt = 159819275;
 	const idFilterResults = people.filter((person) => person.id === idToSearchForInt);
 	return idFilterResults;
 }
@@ -189,8 +192,8 @@ function mainMenu(person, people) {
 			break;
 		case 'family':
 			//! TODO
-			// let personFamily = findPersonFamily(person, people);
-			// displayPeople('Family', personFamily);
+			let personFamily = findPersonFamily(person, people);
+			displayPeople('Family', personFamily);
 			break;
 		case 'descendants':
 			//! TODO
@@ -221,6 +224,33 @@ function displayPersonInfo(person){
 	
 	alert(personInfo);
 }
+
+function findPersonFamily(personFound, people){
+	const personSpouse = people.filter(	p => p.currentSpouse === personFound.id);
+	if(personSpouse.length === 1){
+		alert(`Current Spouse: ${personSpouse[0].lastName}, ${personSpouse[0].firstName}`);
+	}
+	else{ alert(`No spouse on record`);
+	};
+	
+	const personParents = people.filter(p => personFound.parents.includes(p.id));
+	if(personParents.length === 0){
+		alert(`No record of parents`);
+	}
+	else{
+		const parents = ['']; 
+		for (const parent of personParents) {
+			const parentName = parent.lastName + "," + parent.firstName;
+			parents.push(parentName);			
+		}		
+		const formatedParentText = parents.join(`\n`);						
+		alert(`Parent on record: ${formatedParentText} `);
+	}
+		
+	
+	
+}
+
 
 function displayPeople(displayTitle, peopleToDisplay) {
 	const formatedPeopleDisplayText = peopleToDisplay
